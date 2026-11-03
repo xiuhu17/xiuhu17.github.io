@@ -275,6 +275,10 @@
   .tag:hover { background: var(--link-hover); color: #fff; }
 
   img.avatar { width: 104px; height: 104px; object-fit: cover; object-position: 50% 50%; background: none; display: block; }
+
+  img.avatar { width: 168px; height: 168px; border-radius: 14px; object-fit: contain; box-shadow: none; transform: none; }
+  img.avatar:hover { box-shadow: none; transform: none; }
+  @media (max-width: 600px) { img.avatar { width: 140px; height: 140px; } }
 </style>
 </head>
 <body>
@@ -292,7 +296,7 @@
 <main>
 
   <header>
-    <img class="avatar" src="assets/avatar.jpg" alt="Zhihao Wang" width="104" height="104">
+    <img class="avatar" src="assets/avatar.jpg" alt="Zhihao Wang" width="168" height="168">
     <div>
       <h1>Zhihao Wang</h1>
       <p class="role">Member of Technical Staff @ Perplexity</p>
