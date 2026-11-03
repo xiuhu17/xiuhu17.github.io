@@ -266,6 +266,11 @@
     color: var(--link-hover); background-image: linear-gradient(var(--link-hover), var(--link-hover));
   }
   nav.top .navlinks a:hover, nav.top .brand:hover { background-image: none; }
+
+  /* section title + dot turn teal while the pointer is inside that section */
+  h2, h2::before { transition: color .3s ease, background .3s ease; }
+  section:hover > h2 { color: var(--link-hover); }
+  section:hover > h2::before { background: var(--link-hover); }
 </style>
 </head>
 <body>
