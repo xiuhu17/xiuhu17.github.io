@@ -171,6 +171,35 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
   }
+
+  /* ---------- flat by default, shadow only on hover ---------- */
+  :root { --lift: 0 14px 34px -16px rgba(0,0,0,.24), 0 2px 8px -3px rgba(0,0,0,.07); }
+  @media (prefers-color-scheme: dark) { :root { --lift: 0 14px 34px -14px rgba(0,0,0,.7), 0 2px 8px -3px rgba(0,0,0,.4); } }
+  .logo, .exp:hover .logo, .exp:focus-within .logo, .exp.active .logo { background: transparent; box-shadow: none; transform: none; }
+  .proj img { background: transparent; box-shadow: none; }
+  .avatar { box-shadow: none; transition: box-shadow .35s, transform .35s; }
+  .avatar:hover { box-shadow: 0 14px 34px -14px rgba(32,128,141,.65); transform: translateY(-2px); }
+  .exp, .news li, .pub, .oss-group, .proj, .links a {
+    transition: background .3s ease, box-shadow .3s ease, transform .3s ease, color .2s;
+  }
+  .exp:hover, .exp:focus-within, .news li:hover, .pub:hover, .oss-group:hover, .proj:hover {
+    background: var(--card); box-shadow: var(--lift); transform: translateY(-2px);
+  }
+  .oss-group { background: transparent; }
+  .oss-group:hover .proj:hover { box-shadow: 0 6px 18px -10px rgba(0,0,0,.25); transform: none; background: var(--soft); }
+  .links a:hover { box-shadow: var(--lift); }
+
+  /* Perplexity: a real 3D turn around the vertical centre axis */
+  .logo.pplx { perspective: none; }
+  .logo.pplx svg { transform-origin: 50% 50%; backface-visibility: visible; }
+  .exp:hover .logo.pplx svg, .exp:focus-within .logo.pplx svg, .exp.active .logo.pplx svg {
+    animation: pplx-spin3d 1.2s cubic-bezier(.45,.05,.3,1) 1 both;
+  }
+  @keyframes pplx-spin3d {
+    0%   { transform: perspective(120px) rotateY(0deg); }
+    50%  { transform: perspective(120px) rotateY(180deg) scale(1.1); }
+    100% { transform: perspective(120px) rotateY(360deg); }
+  }
 </style>
 </head>
 <body>
