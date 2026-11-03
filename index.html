@@ -258,6 +258,14 @@
   /* ---------- open source: no card, only the hovered project lifts ---------- */
   .oss-group, .oss-group:hover { background: transparent; box-shadow: none; transform: none; padding-left: 8px; padding-right: 8px; }
   .proj:hover, .oss-group:hover .proj:hover { background: var(--card); box-shadow: var(--lift); transform: translateY(-2px); }
+
+  /* text links: teal on hover */
+  :root { --link-hover: #20808d; }
+  @media (prefers-color-scheme: dark) { :root { --link-hover: #3fb6c4; } }
+  p a:hover, .news a:hover, .pub .title a:hover, nav.top .navlinks a:hover, nav.top .brand:hover {
+    color: var(--link-hover); background-image: linear-gradient(var(--link-hover), var(--link-hover));
+  }
+  nav.top .navlinks a:hover, nav.top .brand:hover { background-image: none; }
 </style>
 </head>
 <body>
