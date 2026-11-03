@@ -222,6 +222,42 @@
   }
   @keyframes pplx-revolve { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
   @media (max-width: 600px) { .logo.pplx .door { width: 34px; height: 34px; } .logo.pplx .wing { width: 17px; height: 34px; } }
+
+  /* ---------- unified type & two-colour palette ---------- */
+  :root { --accent: var(--fg); --icon-off: brightness(0) opacity(.28); }
+  @media (prefers-color-scheme: dark) { :root { --icon-off: brightness(0) invert(1) opacity(.32); } }
+  h1, h2, h3, nav.top .brand, .avatar, .pub .title, .proj .pname, .tag, .links a, footer {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  h1 { font-size: 32px; font-weight: 600; letter-spacing: -.4px; }
+  nav.top .brand { font-size: 16px; font-weight: 600; }
+  .avatar { background: var(--fg); color: var(--bg); font-size: 28px; font-weight: 600; letter-spacing: .5px; }
+  h2 { font-size: 13px; font-weight: 600; letter-spacing: 1.4px; color: var(--muted); }
+  h2::before { background: var(--muted); }
+  .exp h3, .oss-group h3, .pub .title, .proj .pname { font-size: 16px; font-weight: 600; color: var(--fg); }
+  .role, .exp .meta, .news .date, .proj .pdesc, .pub .authors, .pub .venue, nav.top .navlinks a, footer, .tag, .links a {
+    font-size: 14px; color: var(--muted);
+  }
+  .pub .venue em, .me { color: var(--fg); }
+  p a, .news a, .pub .title a { color: var(--fg); background-image: linear-gradient(var(--muted), var(--muted)); background-size: 100% 1px; }
+  p a:hover, .news a:hover, .pub .title a:hover { color: var(--fg); background-image: linear-gradient(var(--fg), var(--fg)); background-size: 100% 1.5px; }
+  nav.top .navlinks a:hover { color: var(--fg); }
+  .links a:hover, .tag:hover { background: var(--fg); color: var(--bg); }
+  .interest { background: var(--soft); }
+
+  /* ---------- icons: one identical grey when idle, brand colour on hover ---------- */
+  .logo, .exp:hover .logo, .exp:focus-within .logo, .exp.active .logo { opacity: 1; }
+  .logo { filter: var(--icon-off); }
+  .exp:hover .logo, .exp:focus-within .logo, .exp.active .logo { filter: none; }
+  .logo.pplx, .exp:hover .logo.pplx { filter: none; }
+  .logo.pplx .wing { opacity: 1; filter: var(--icon-off); }
+  .exp:hover .logo.pplx .wing, .exp:focus-within .logo.pplx .wing, .exp.active .logo.pplx .wing { filter: none; }
+  .proj img, .proj:focus img { opacity: 1; filter: var(--icon-off); }
+  .proj:hover img { filter: none; opacity: 1; }
+
+  /* ---------- open source: no card, only the hovered project lifts ---------- */
+  .oss-group, .oss-group:hover { background: transparent; box-shadow: none; transform: none; padding-left: 8px; padding-right: 8px; }
+  .proj:hover, .oss-group:hover .proj:hover { background: var(--card); box-shadow: var(--lift); transform: translateY(-2px); }
 </style>
 </head>
 <body>
