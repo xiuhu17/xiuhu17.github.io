@@ -281,6 +281,20 @@
   @media (max-width: 600px) { img.avatar { width: 140px; height: 140px; } }
 
   .pub .venue em { font-weight: 600; }
+
+  /* ---------- spacing system (one rule per role) ----------
+     content edge = 0; hover surfaces bleed out by the same amount as their padding
+     rows (news, projects): 8px / 12px      blocks (experience, publication, blog): 16px / 16px */
+  .news li, .proj { padding: 8px 12px; margin: 0 -12px; }
+  .exp, .pub { padding: 16px; margin: 0 -16px; }
+  .interest { padding: 12px 16px; margin: 4px -16px 0; }
+  .oss-group, .oss-group:hover { padding: 0; }
+  .oss-group h3 { margin: 0 0 8px; }
+  .oss { gap: 28px; }
+  .exp .meta, .pub .authors { margin: 2px 0 0; }
+  .exp .meta { margin-bottom: 8px; }
+  .proj .pdesc, .pub .authors, .pub .venue, .exp .meta { line-height: 1.55; }
+  section > h2 + * { margin-top: 0; }
 </style>
 </head>
 <body>
