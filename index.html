@@ -295,6 +295,12 @@
   .exp .meta { margin-bottom: 8px; }
   .proj .pdesc, .pub .authors, .pub .venue, .exp .meta { line-height: 1.55; }
   section > h2 + * { margin-top: 0; }
+
+  /* content sits indented under its section title (aligned with the title text, after the dot) */
+  section { padding-left: 16px; }
+  section > h2 { margin-left: -16px; }
+  /* research interest: the panel edge aligns with the paragraphs, text is inset inside it */
+  .interest { margin: 4px 0 0; }
 </style>
 </head>
 <body>
