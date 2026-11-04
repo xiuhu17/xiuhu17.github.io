@@ -102,12 +102,6 @@
   .news .date { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 15px; }
 
   /* Perplexity: one full turn around its vertical centre axis, then stop */
-  .logo.pplx { perspective: 220px; }
-  .logo.pplx svg { transform-origin: 50% 50%; }
-  .exp:hover .logo.pplx svg, .exp:focus-within .logo.pplx svg, .exp.active .logo.pplx svg {
-    animation: pplx-flip 1.1s cubic-bezier(.45,.05,.25,1) 1 both;
-  }
-  @keyframes pplx-flip { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
 
   /* ByteDance Seed: the four bars grow one after another, like a sprouting seed */
   .seed-bar { transform-box: fill-box; transform-origin: 50% 100%; }
@@ -189,39 +183,7 @@
   .oss-group:hover .proj:hover { box-shadow: 0 6px 18px -10px rgba(0,0,0,.25); transform: none; background: var(--soft); }
   .links a:hover { box-shadow: var(--lift); }
 
-  /* Perplexity: a real 3D turn around the vertical centre axis */
-  .logo.pplx { perspective: none; }
-  .logo.pplx svg { transform-origin: 50% 50%; backface-visibility: visible; }
-  .exp:hover .logo.pplx svg, .exp:focus-within .logo.pplx svg, .exp.active .logo.pplx svg {
-    animation: pplx-spin3d 1.2s cubic-bezier(.45,.05,.3,1) 1 both;
-  }
-  @keyframes pplx-spin3d {
-    0%   { transform: perspective(120px) rotateY(0deg); }
-    50%  { transform: perspective(120px) rotateY(180deg) scale(1.1); }
-    100% { transform: perspective(120px) rotateY(360deg); }
-  }
 
-  /* Perplexity: the mark is a revolving door / rolodex — four wings turning
-     in 3D around the central vertical line. At rest only the front pair is
-     visible (the other two are edge-on), so it reads as the flat logo. */
-  .logo.pplx, .exp:hover .logo.pplx, .exp:focus-within .logo.pplx, .exp.active .logo.pplx { filter: none; opacity: 1; perspective: 150px; }
-  .logo.pplx .door { position: relative; width: 42px; height: 42px; transform-style: preserve-3d; animation: none; }
-  .logo.pplx .wing {
-    position: absolute; left: 50%; top: 0; width: 21px; height: 42px;
-    transform-origin: 0 50%; backface-visibility: visible; overflow: visible;
-    filter: grayscale(1); opacity: .55; transition: filter .45s ease, opacity .45s ease;
-    animation: none !important;
-  }
-  .logo.pplx .w0 { transform: rotateY(0deg); }
-  .logo.pplx .w1 { transform: rotateY(90deg); }
-  .logo.pplx .w2 { transform: rotateY(180deg); }
-  .logo.pplx .w3 { transform: rotateY(270deg); }
-  .exp:hover .logo.pplx .wing, .exp:focus-within .logo.pplx .wing, .exp.active .logo.pplx .wing { filter: none; opacity: 1; }
-  .exp:hover .logo.pplx .door, .exp:focus-within .logo.pplx .door, .exp.active .logo.pplx .door {
-    animation: pplx-revolve 1.6s cubic-bezier(.5,0,.25,1) 1 both;
-  }
-  @keyframes pplx-revolve { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
-  @media (max-width: 600px) { .logo.pplx .door { width: 34px; height: 34px; } .logo.pplx .wing { width: 17px; height: 34px; } }
 
   /* ---------- unified type & two-colour palette ---------- */
   :root { --accent: var(--fg); --icon-off: brightness(0) opacity(.28); }
@@ -249,9 +211,6 @@
   .logo, .exp:hover .logo, .exp:focus-within .logo, .exp.active .logo { opacity: 1; }
   .logo { filter: var(--icon-off); }
   .exp:hover .logo, .exp:focus-within .logo, .exp.active .logo { filter: none; }
-  .logo.pplx, .exp:hover .logo.pplx { filter: none; }
-  .logo.pplx .wing { opacity: 1; filter: var(--icon-off); }
-  .exp:hover .logo.pplx .wing, .exp:focus-within .logo.pplx .wing, .exp.active .logo.pplx .wing { filter: none; }
   .proj img, .proj:focus img { opacity: 1; filter: var(--icon-off); }
   .proj:hover img { filter: none; opacity: 1; }
 
@@ -301,6 +260,20 @@
   section > h2 { margin-left: -16px; }
   /* research interest: the panel edge aligns with the paragraphs, text is inset inside it */
   .interest { margin: 4px 0 0; }
+
+  /* Perplexity: the mark opens like a book (motion studied frame by frame from the brand film).
+     8 half-pages hinge on the central spine; idle = flat logo in the shared grey. */
+  .logo.pplx, .exp:hover .logo.pplx, .exp:focus-within .logo.pplx, .exp.active .logo.pplx { filter: none; opacity: 1; perspective: 170px; }
+  .logo.pplx .book { position: relative; width: 42px; height: 42px; transform-style: preserve-3d; }
+  .logo.pplx .page { position: absolute; left: 50%; top: 0; width: 50%; height: 100%; transform-origin: 0 50%;
+                     overflow: hidden; backface-visibility: visible; filter: var(--icon-off-solid); transition: filter .45s ease; }
+  .logo.pplx .page:nth-child(even) { transform: rotateY(180deg); }
+  .exp:hover .logo.pplx .page, .exp:focus-within .logo.pplx .page, .exp.active .logo.pplx .page { filter: none; }
+  @media (max-width: 600px) { .logo.pplx .book { width: 34px; height: 34px; } }
+
+  /* same grey as the other idle logos, but opaque so the 8 stacked pages don't darken it */
+  :root { --icon-off-solid: brightness(0) invert(.72); }
+  @media (prefers-color-scheme: dark) { :root { --icon-off-solid: brightness(0) invert(.365); } }
 </style>
 </head>
 <body>
@@ -356,7 +329,7 @@
 
     <div class="exp" tabindex="0">
       <div class="logo pplx" title="Perplexity">
-        <div class="door" role="img" aria-label="Perplexity"><svg class="wing w0" viewBox="12 0 12 24" aria-hidden="true"><path fill="#20808D" d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z"/></svg><svg class="wing w1" viewBox="12 0 12 24" aria-hidden="true"><path fill="#20808D" d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z"/></svg><svg class="wing w2" viewBox="12 0 12 24" aria-hidden="true"><path fill="#20808D" d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z"/></svg><svg class="wing w3" viewBox="12 0 12 24" aria-hidden="true"><path fill="#20808D" d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z"/></svg></div>
+        <div class="book" role="img" aria-label="Perplexity"><svg class="page" viewBox="12 0 12 24" aria-hidden="true"><path fill="#20808D" d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z"/></svg><svg class="page" viewBox="12 0 12 24" aria-hidden="true"><path fill="#20808D" d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z"/></svg><svg class="page" viewBox="12 0 12 24" aria-hidden="true"><path fill="#20808D" d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z"/></svg><svg class="page" viewBox="12 0 12 24" aria-hidden="true"><path fill="#20808D" d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z"/></svg><svg class="page" viewBox="12 0 12 24" aria-hidden="true"><path fill="#20808D" d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z"/></svg><svg class="page" viewBox="12 0 12 24" aria-hidden="true"><path fill="#20808D" d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z"/></svg><svg class="page" viewBox="12 0 12 24" aria-hidden="true"><path fill="#20808D" d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z"/></svg><svg class="page" viewBox="12 0 12 24" aria-hidden="true"><path fill="#20808D" d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z"/></svg></div>
       </div>
       <div>
         <h3>Perplexity</h3>
@@ -432,6 +405,50 @@
       row.classList.remove('active'); void row.offsetWidth; row.classList.add('active');
     }, { passive: true });
   });
+</script>
+
+<script>
+/* Perplexity book-opening animation (same model as the demo): fold shut quickly,
+   hold the edge-on "cursor", swing toward the viewer, fan the pages, long settle. */
+(function(){
+  const book=document.querySelector('.logo.pplx .book'); if(!book) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const pages=[...book.querySelectorAll('.page')], row=book.closest('.exp');
+  const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+  const easeOut=x=>1-Math.pow(1-x,3), easeInOut=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+  const N=8, CLOSE=0.22, LEAD=0.12, END=3.2;
+  function pose(t){
+    t-=LEAD; let yaw;
+    if(t<0) yaw=-90;
+    else if(t<0.45) yaw=-90+75*easeOut(t/0.45);
+    else { const s=t-0.45; yaw=-15*Math.exp(-s*1.25)*Math.cos(s*2.6)+11*Math.exp(-s*1.1)*Math.sin(s*2.6); }
+    const tilt=6*Math.exp(-Math.max(0,t)*1.6), ang=[];
+    for(let k=0;k<N;k++){
+      const left=k%2===1, j=Math.floor(k/2);
+      const riffle=clamp((t-0.12)/0.2)*(1-clamp((t-0.35)/0.25))*(j+1)*-7;
+      const p=easeInOut(clamp((t-0.28-j*0.035)/0.32));
+      const spread=(j-1.5)*16*clamp((t-0.3)/0.15)*Math.exp(-Math.max(0,t-0.55)*1.05);
+      ang.push((left?180*p:0)+riffle+(left?-spread:spread));
+    }
+    return {yaw,tilt,ang};
+  }
+  const REST={yaw:0,tilt:0,ang:pages.map((_,k)=>k%2?180:0)};
+  const lerp=(a,b,x)=>a+(b-a)*x;
+  function apply(P){ book.style.transform=`rotateX(${P.tilt}deg) rotateY(${P.yaw}deg)`;
+    pages.forEach((pg,i)=>pg.style.transform=`rotateY(${P.ang[i]}deg)`); }
+  let start=null, raf=0;
+  function step(now){
+    const t=(now-start)/1000; let P;
+    if(t<CLOSE){ const x=easeInOut(t/CLOSE), A=pose(0);          // fold the open logo shut
+      P={yaw:lerp(0,A.yaw,x),tilt:lerp(0,A.tilt,x),ang:REST.ang.map((a,i)=>lerp(a,A.ang[i],x))}; }
+    else P=pose(t-CLOSE);
+    apply(P);
+    if(t<CLOSE+END) raf=requestAnimationFrame(step); else { apply(REST); start=null; }
+  }
+  function play(){ if(start!==null) return; start=performance.now(); raf=requestAnimationFrame(step); }
+  row.addEventListener('mouseenter',play); row.addEventListener('focusin',play);
+  row.addEventListener('touchstart',play,{passive:true});
+})();
 </script>
 </body>
 </html>
